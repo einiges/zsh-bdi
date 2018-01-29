@@ -45,7 +45,7 @@ d="your preferred location"
 mkdir -p $d
 cd $d
 git clone https://github.com/Shrvi/zsh-bd
-print ". $d/zsh-bd/zsh-bd.zsh"
+print ". \"$d/zsh-bd/zsh-bd.zsh\"" >> "${ZDOTDIR:-$HOME/.zshrc}"
 ```
 
 ## Algorithm
