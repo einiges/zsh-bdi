@@ -21,14 +21,14 @@ Well, add `alias ..=bd` to your `.zshrc` and extend your workflow.
 
 Multiple patterns will be interpreted as `pattern*pattern2*...*patternN`
 
-Pattern can either be a text to match a parent directory or a number, to go _number_ directories back. [How does bd chooses the directory](#algorithm).
+Pattern can either be a text, to match a parent directory or a number, to go _number_ directories back. [How does bd chooses the directory](#algorithm).
 
 
 ### Options
 
 | Argument | Description |
 | -------- | ----------- |
-| -f | _bd_ skips textbased sarch. _Useful when a directory begins with a number._ |
+| -f | _bd_ skips textbased search. _Useful when a directory begins with a number._ |
 
 
 ## Installation
