@@ -2,7 +2,7 @@
 Without arguments
 
   $ mkcd a
-  $ bd
+  $ bdi
   $ pwd
   
 
@@ -10,7 +10,7 @@ Without arguments
 Argument is number and numbered directories don't occur
 
   $ hmkcd a/b/c
-  $ bd 2
+  $ bdi 2
   $ pwd
   a
 
@@ -18,7 +18,7 @@ Argument is number and numbered directories don't occur
 Best match
 
   $ hmkcd aaa/bbb/bbb/ccc
-  $ bd b
+  $ bdi b
   $ pwd
   aaa/bbb/bbb
 
@@ -26,7 +26,7 @@ Best match
 Spaced directories
 
   $ hmkcd "aaa/a b/bbb/ccc"
-  $ bd "a b"
+  $ bdi "a b"
   $ pwd
   aaa/a b
 
@@ -34,7 +34,7 @@ Spaced directories
 Symboled directories
 
   $ hmkcd "aaa/~ */bbb"
-  $ bd "~ *"
+  $ bdi "~ *"
   $ pwd
   aaa/~ *
 
@@ -42,7 +42,7 @@ Symboled directories
 Argument is number and numbered directories occur
 
   $ hmkcd 1/1.2/1.3
-  $ bd 1
+  $ bdi 1
   $ pwd
   1
 
@@ -50,7 +50,7 @@ Argument is number and numbered directories occur
 Force number
 
   $ hmkcd 1/1.2/1.3
-  $ bd -f 1
+  $ bdi -f 1
   $ pwd
   1/1.2
 
@@ -58,20 +58,20 @@ Force number
 Options passed but no directory specified
 
   $ hmkcd a
-  $ bd -f
+  $ bdi -f
   $ pwd
   
 
 
 Force number without a number (expect error)
 
-  $ bd -f /
+  $ bdi -f /
   [1]
 
 
 Shortcut for root (/)
 
-  $ bd 0
+  $ bdi 0
   $ pwd
   /
 
@@ -79,7 +79,7 @@ Shortcut for root (/)
 Multiple 0 work a one
 
   $ cdh
-  $ bd 00
+  $ bdi 00
   $ pwd
   /
 
@@ -87,7 +87,7 @@ Multiple 0 work a one
 Number greater than parent directories
 
   $ cdh
-  $ bd $(( ${#PWD//[^\/]/} + 1 ))
+  $ bdi $(( ${#PWD//[^\/]/} + 1 ))
   $ pwd
   /
 
@@ -95,14 +95,14 @@ Number greater than parent directories
 Multiple arguments
 
   $ hmkcd aaa/aab/aac/aad
-  $ bd a b
+  $ bdi a b
   $ pwd
   aaa/aab
 
 
 PWD is not a parent
 
-  $ bd $PWD:t
+  $ bdi $PWD:t
   [1]
 
 

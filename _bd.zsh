@@ -1,8 +1,8 @@
-#compdef bd
+#compdef bdi
 
-zstyle ':completion:*:*:bd:*' sort false
+zstyle ':completion:*:*:bdi:*' sort false
 
-function _bd {
+function _bdi {
 	_arguments -S \
 		'-f[force number]:number:->numbers' \
 		'*:directory:->directories'
@@ -25,4 +25,4 @@ function _bd {
 
 }
 
-_bd "$@"
+_bdi "$@"

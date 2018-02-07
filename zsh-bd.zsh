@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function bd {
+function bdi {
 	zparseopts -D -A opts f
 
 	(( $# == 0 )) &&
