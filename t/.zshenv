@@ -1,4 +1,4 @@
-source ${PROJECT}/zsh-bd.zsh
+source ${PROJECT}/zsh-bdi.zsh
 
 pwd() {
 	print ${PWD##${CRAMTMP}/${TESTFILE}(/|)}
