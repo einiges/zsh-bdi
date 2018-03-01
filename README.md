@@ -29,6 +29,7 @@ Pattern can either be a text, to match a parent directory or a number, to go _nu
 | Argument | Description |
 | -------- | ----------- |
 | -f | _bdi_ skips textbased search. _Useful when a directory begins with a number._ |
+| -d | Dry run. Print the resulting directory, does not cd into. |
 
 
 ## Installation

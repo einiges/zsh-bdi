@@ -1,10 +1,18 @@
 #!/usr/bin/env zsh
 
+function -bdi::out {
+	if [[ -v opts[-d] ]]; then
+		printf "$1\n"
+	else
+		cd "$1"
+	fi
+}
+
 function bdi {
-	zparseopts -D -A opts f
+	zparseopts -D -A opts f d
 
 	(( $# == 0 )) &&
-		{ cd $PWD:h; return }
+		{ -bdi::out $PWD:h; return }
 
 	local parents=( / ${(s:/:)PWD:h} )
 	local dest=${(j:*:)@}
@@ -15,14 +23,14 @@ function bdi {
 		(( d=${parents[(I)$dest]} )) || (( d=${parents[(I)$dest*]} ))
 
 		(( d > 0 )) &&
-			{ cd "/${(j:/:)parents[2, $d]}"; return }
+			{ -bdi::out "/${(j:/:)parents[2, $d]}"; return }
 	fi
 
 	[[ $dest == <1-> ]] &&
-		{ cd "/${(j:/:)parents[2, (( $#parents - dest + 1 ))]}"; return }
+		{ -bdi::out "/${(j:/:)parents[2, (( $#parents - dest + 1 ))]}"; return }
 
 	[[ $dest == <0-0> ]] &&
-		{ cd /; return }
+		{ -bdi::out /; return }
 
 	return 1
 }

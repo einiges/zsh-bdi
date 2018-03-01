@@ -14,7 +14,7 @@ function _bdi {
 	case "$state" in
 		numbers)
 			local -a numparents
-			for i in {1..$(($#parents - 1))}; numparents[$i]="$i""[${parents[$i]}]"
+			for i in {1..$(($#parents - 1))}; numparents+=("$i""[${parents[$i]}]")
 			numparents+=( '0[/]' )
 			_values 'numbered parent directories' $numparents
 			;;
