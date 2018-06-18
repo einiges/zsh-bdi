@@ -12,7 +12,7 @@ function bdi {
 	zparseopts -D -A opts f d h
 
 	[[ -v opts[-h] ]] && {
-		print "usage: $0 [-fdh] [n|parent|{pattern [pattern ...]}]\n\n" \
+		print "usage: $0 [-fdh] [n|parent|{pattern  ...}]\n\n" \
 		      "   -f     parent will be interpreted as a number\n" \
 		      "   -d     print new directory to stdout instead of changing\n" \
 		      "   -h     print this help"
