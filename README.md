@@ -8,7 +8,6 @@ This is a reimplementation of [Tarrasch](https://github.com/Tarrasch)'s [zsh-bd]
 It comes with less code,  even more zsh builtin functionality, and a slightly improved [directory choosing algorithm](#algorithm).
 
 
-
 ## Hint
 
 You may be used to quickly go back one directory with `..`, because of `setopt autocd`.
@@ -17,41 +16,24 @@ Well, add `alias ..=bdi` to your `.zshrc` and extend your workflow.
 
 ## Usage
 
-`bdi [OPTIONS] [pattern [pattern2 ... patternN]]`
+`bdi [OPTIONS] [n|parent|{pattern ...}]`
 
 Multiple patterns will be interpreted as `pattern*pattern2*...*patternN`
 
 Pattern can either be a text, to match a parent directory or a number, to go _number_ directories back. [How does bdi chooses the directory](#algorithm).
 
 
-### Options
-
-| Argument | Description |
-| -------- | ----------- |
-| -f | _bdi_ skips textbased search. _Useful when a directory begins with a number._ |
-| -d | Dry run. Print the resulting directory, does not cd into. |
-
-
 ## Installation
 
 Use your preferred zsh plugin manager. For installation instructions see their sites.
 
-### Manual installation
-
-
-```sh
-d="your preferred location"
-mkdir -p $d
-cd $d
-git clone https://github.com/Shrvi/zsh-bdi
-print ". \"$d/zsh-bdi/zsh-bdi.zsh\"" >> "${ZDOTDIR:-$HOME}/.zshrc"
-```
+For manual installation, download [zsh-bdi.zsh](./zsh-bdi.zsh) and source the file in your `zshrc`.
 
 ## Algorithm
 
 1. If _bdi_ is called without arguments, it simply goes one directory back.
 
-2. _bdi_ tries to find directory that matches the passed pattern. [\*]
+2. _bdi_ tries to find a directory that matches the passed pattern. [\*]
 
 3. _bdi_ tries to find a directory beginning with the passed pattern. [\*]
 
