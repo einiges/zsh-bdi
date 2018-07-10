@@ -35,7 +35,7 @@ function bdi {
 	fi
 
 	[[ $dest == <1-> ]] &&
-		{ -bdi::out "/${(j:/:)parents[2, (( $#parents - dest + 1 ))]}"; return }
+		{ -bdi::out "/${(j:/:)parents[2, $#parents - dest + 1]}"; return }
 
 	[[ $dest == <0-0> ]] &&
 		{ -bdi::out /; return }
