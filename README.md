@@ -40,9 +40,9 @@ For completions download [\_bdi.zsh](./\_bdi.zsh) and add the directory where th
 
 3. Find parent that begins with the passed pattern.¹
 
-4. Go amount of dots [.] +1 parents back.²
+4. If the passed pattern is a sequence of dots `$\.+^`, go amount of dots +1 parents back.²
 
-5. If the passed pattern is a _number_, go _number_ directories back. 0 is a shortcut to [/].²
+5. If the passed pattern is a _number_, go _number_ directories back. 0 is a shortcut to /.²
 
 6. return 1
 
