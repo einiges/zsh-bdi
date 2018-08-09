@@ -100,8 +100,25 @@ Multiple arguments
   aaa/aab
 
 
+Dots 1
+
+  $ hmkcd aaa/aab/aac
+  $ bdi .
+  $ pwd
+  aaa
+
+
+Dots (to many)
+
+  $ cdh
+  $ bdi $(printf '.%.0s' {1..${#PWD//[^\/]/}})
+  $ pwd
+  /
+
+
 PWD is not a parent
 
+  $ cdh
   $ bdi $PWD:t
   [1]
 

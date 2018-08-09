@@ -32,6 +32,9 @@ function bdi {
 
 		(( d > 0 )) &&
 			{ -bdi::out "/${(j:/:)parents[2, $d]}"; return }
+
+		[[ "$dest" =~ '^\.+$' ]] &&
+			{ -bdi::out "/${(j:/:)parents[2,-(${#dest}+1)]}"; return }
 	fi
 
 	[[ $dest == <1-> ]] &&
