@@ -1,5 +1,9 @@
 source ${PROJECT}/zsh-bdi.zsh
 
+bdp() {
+	bdi "$@" && pwd
+}
+
 pwd() {
 	print ${PWD##${CRAMTMP}/${TESTFILE}(/|)}
 }

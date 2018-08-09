@@ -2,124 +2,110 @@
 Without arguments
 
   $ mkcd a
-  $ bdi
-  $ pwd
+  $ bdp
   
 
 
 Argument is number and numbered directories don't occur
 
   $ hmkcd a/b/c
-  $ bdi 2
-  $ pwd
+  $ bdp 2
   a
 
 
 Best match
 
   $ hmkcd aaa/bbb/bbb/ccc
-  $ bdi b
-  $ pwd
+  $ bdp b
   aaa/bbb/bbb
 
 
 Spaced directories
 
   $ hmkcd "aaa/a b/bbb/ccc"
-  $ bdi "a b"
-  $ pwd
+  $ bdp "a b"
   aaa/a b
 
 
 Symboled directories
 
   $ hmkcd "aaa/~ */bbb"
-  $ bdi "~ *"
-  $ pwd
+  $ bdp "~ *"
   aaa/~ *
 
 
 Argument is number and numbered directories occur
 
   $ hmkcd 1/1.2/1.3
-  $ bdi 1
-  $ pwd
+  $ bdp 1
   1
 
 
 Force number
 
   $ hmkcd 1/1.2/1.3
-  $ bdi -f 1
-  $ pwd
+  $ bdp -f 1
   1/1.2
 
 
 Options passed but no directory specified
 
   $ hmkcd a
-  $ bdi -f
-  $ pwd
+  $ bdp -f
   
 
 
 Force number without a number (expect error)
 
-  $ bdi -f /
+  $ bdp -f /
   [1]
 
 
 Shortcut for root (/)
 
-  $ bdi 0
-  $ pwd
+  $ bdp 0
   /
 
 
 Multiple 0 work as one
 
   $ cdh
-  $ bdi 00
-  $ pwd
+  $ bdp 00
   /
 
 
 Number greater than parent directories
 
   $ cdh
-  $ bdi $(( ${#PWD//[^\/]/} + 1 ))
-  $ pwd
+  $ bdp $(( ${#PWD//[^\/]/} + 1 ))
   /
 
 
 Multiple arguments
 
   $ hmkcd aaa/aab/aac/aad
-  $ bdi a b
-  $ pwd
+  $ bdp a b
   aaa/aab
 
 
 Dots 1
 
   $ hmkcd aaa/aab/aac
-  $ bdi .
-  $ pwd
+  $ bdp .
   aaa
 
 
 Dots (to many)
 
   $ cdh
-  $ bdi $(printf '.%.0s' {1..${#PWD//[^\/]/}})
-  $ pwd
+  $ bdp $(printf '.%.0s' {1..${#PWD//[^\/]/}})
   /
 
 
 PWD is not a parent
 
   $ cdh
-  $ bdi $PWD:t
+  $ bdp $PWD:t
   [1]
 
 
