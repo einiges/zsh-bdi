@@ -5,13 +5,12 @@ Quickly go back to a specific parent directory instead of typing `cd ../../..` r
 ---
 
 This is a reimplementation of [Tarrasch](https://github.com/Tarrasch)'s [zsh-bd](https://github.com/Tarrasch/zsh-bd).
-It comes with less code,  even more zsh builtin functionality, and a slightly improved [directory choosing algorithm](#algorithm).
+It comes with less code, even more zsh builtin functionality, and a slightly improved parent choosing algorithm.
 
+## Tip
 
-## Hint
+ To get the feel of `setopt autocd` back, add `alias ..=bdi` to your `zshrc`.
 
-You may be used to quickly go back one directory with `..`, because of `setopt autocd`.
-Well, add `alias ..=bdi` to your `.zshrc` and extend your workflow.
 
 
 ## Usage
@@ -20,25 +19,33 @@ Well, add `alias ..=bdi` to your `.zshrc` and extend your workflow.
 
 Multiple patterns will be interpreted as `pattern*pattern2*...*patternN`
 
-Pattern can either be a text, to match a parent directory or a number, to go _number_ directories back. [How does bdi chooses the directory](#algorithm).
+Pattern can either be a text, to match a parent, a number to go _number_ directories back, or a sequence of dots.
+
 
 
 ## Installation
 
 Use your preferred zsh plugin manager. For installation instructions see their sites.
 
-For manual installation, download [zsh-bdi.zsh](./zsh-bdi.zsh) and source the file in your `zshrc`.
+For manual installation download [zsh-bdi.zsh](./zsh-bdi.zsh) and `source` the file in your `zshrc`.
+For completions download [\_bdi.zsh](./\_bdi.zsh) and add the directory where the file is located to `$fpath`.
 
-## Algorithm
 
-1. If _bdi_ is called without arguments, it simply goes one directory back.
 
-2. _bdi_ tries to find a directory that matches the passed pattern. [\*]
+## Order of finding the best matching parent
 
-3. _bdi_ tries to find a directory beginning with the passed pattern. [\*]
+1. If no arguments are given, go one directory back.
 
-4. If argument is a sequence of dots `.`, go amount of dots + 1 back. `bdi .` is the same as `bdi -f 2`.
+2. Find parent that matches the passed pattern.¹
 
-5. If the passed pattern is a _number_, _bdi_ goes _number_ directories back.  If the passed _number_ is greater than the possible amount of parent directories, the new pwd will be / and **no** error will be raised. 0 is treated as a shortcut to /.
+3. Find parent that begins with the passed pattern.¹
 
-[\*] If there are more than one, _bdi_ chooses the closest to _pwd_.
+4. Go amount of dots `.` +1 parents back.²
+
+5. If the passed pattern is a _number_, go _number_ directories back. 0 is a shortcut to /.²
+
+6. return 1
+
+[1] If there are more than one, _bdi_ chooses the closest to _pwd_.
+[2] If the amount of dots, or number is greater than the amount of parents, the resulting directory is /, and no error will be raised.
+

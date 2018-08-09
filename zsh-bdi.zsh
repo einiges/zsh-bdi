@@ -2,7 +2,7 @@
 
 function -bdi::out {
 	if [[ -v opts[-d] ]]; then
-		printf "$1\n"
+		print "$1"
 	else
 		cd "$1"
 	fi
@@ -12,10 +12,13 @@ function bdi {
 	zparseopts -D -A opts f d h
 
 	[[ -v opts[-h] ]] && {
-		print "usage: $0 [-fdh] [n|parent|{pattern  ...}]\n\n" \
-		      "   -f     parent will be interpreted as a number\n" \
-		      "   -d     print new directory to stdout instead of changing\n" \
-		      "   -h     print this help"
+		<<- EOU
+			usage: $0 [-fdh] [n|parent|{pattern ...}|{.[...]}]
+
+			   -f     parent will be interpreted as a number
+			   -d     print new directory to stdout instead of changing
+			   -h     print this help
+		EOU
 		return 0
 	}
 

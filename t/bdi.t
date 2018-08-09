@@ -76,7 +76,7 @@ Shortcut for root (/)
   /
 
 
-Multiple 0 work a one
+Multiple 0 work as one
 
   $ cdh
   $ bdi 00
@@ -121,6 +121,7 @@ PWD is not a parent
   $ cdh
   $ bdi $PWD:t
   [1]
+
 
 Dry run
 
