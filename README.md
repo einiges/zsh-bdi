@@ -27,7 +27,7 @@ Pattern can either be a text, to match a parent, a number to go _number_ directo
 
 Use your preferred zsh plugin manager. For installation instructions see their sites.
 
-For manual installation download [zsh-bdi.zsh](./zsh-bdi.zsh) and `source` the file in your `zshrc`.
+For manual installation download [zsh-bdi.zsh](./zsh-bdi.zsh) and `source` the file in your `zshrc`.  
 For completions download [\_bdi.zsh](./\_bdi.zsh) and add the directory where the file is located to `$fpath`.
 
 
@@ -40,12 +40,12 @@ For completions download [\_bdi.zsh](./\_bdi.zsh) and add the directory where th
 
 3. Find parent that begins with the passed pattern.¹
 
-4. Go amount of dots `.` +1 parents back.²
+4. Go amount of dots [.] +1 parents back.²
 
-5. If the passed pattern is a _number_, go _number_ directories back. 0 is a shortcut to /.²
+5. If the passed pattern is a _number_, go _number_ directories back. 0 is a shortcut to [/].²
 
 6. return 1
 
-[1] If there are more than one, _bdi_ chooses the closest to _pwd_.
+[1] If there are more than one, _bdi_ chooses the closest to _pwd_.  
 [2] If the amount of dots, or number is greater than the amount of parents, the resulting directory is /, and no error will be raised.
 
