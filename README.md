@@ -15,7 +15,7 @@ It comes with less code, even more zsh builtin functionality, and a slightly imp
 
 ## Usage
 
-`bdi [OPTIONS] [n|parent|{pattern ...}]`
+`bdi [OPTIONS] [n|parent|{pattern ...}|{.[...]}]`
 
 Multiple patterns will be interpreted as `pattern*pattern2*...*patternN`
 
