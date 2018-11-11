@@ -1,6 +1,6 @@
 # vim:ft=zsh noet
 
-zparseopts -D -A opts f d h
+zparseopts -D -A opts f h
 
 [[ -v opts[-h] ]] && {
 	<<- EOU
