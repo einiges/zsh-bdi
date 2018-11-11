@@ -4,7 +4,6 @@ zstyle ':completion:*:*:bdi:*' sort false
 
 function _bdi {
 	_arguments -S \
-		'-d[dry run]' \
 		'-f[force number]:number:->numbers' \
 		'-h[help]' \
 		'*:directory:->directories'

@@ -109,13 +109,4 @@ PWD is not a parent
   [1]
 
 
-Dry run
-
-  $ hmkcd aaa/aab
-  $ bdi -d /
-  /
-  $ pwd
-  aaa/aab
-
-
 vim: ft=cram et ts=2 sw=2 sts=2
