@@ -27,7 +27,7 @@ Pattern can either be a text, to match a parent, a number to go _number_ directo
 
 Use your preferred zsh plugin manager. For installation instructions see their sites.
 
-For manual installation download [zsh-bdi.zsh](./zsh-bdi.zsh) and `source` the file in your `zshrc`.  
+For manual installation download [bdi](./bdi) and add `autoload -Uz ${LOCATION}/bdi` in your `zshrc`.  
 For completions download [\_bdi.zsh](./\_bdi.zsh) and add the directory where the file is located to `$fpath`.
 
 
