@@ -2,7 +2,7 @@
 
 function -bdi::out {
 	if [[ -v opts[-d] ]]; then
-		print "$1"
+		printf '%s\n' "$1"
 	else
 		cd "$1"
 	fi
@@ -21,7 +21,7 @@ zparseopts -D -A opts f d h
 	return
 }
 
-(( $# == 0 )) &&
+(( ! ARGC )) &&
 	{ -bdi::out $PWD:h; return }
 
 local parents=( / ${(s:/:)PWD:h} )
@@ -33,9 +33,9 @@ then
 	(( d=${parents[(I)$dest]} )) || (( d=${parents[(I)$dest*]} ))
 
 	(( d > 0 )) &&
-		{ -bdi::out "/${(j:/:)parents[2, $d]}"; return }
+		{ -bdi::out "/${(j:/:)parents[2, d]}"; return }
 
-	[[ "$dest" =~ '^\.+$' ]] &&
+	[[ $dest =~ '^\.+$' ]] &&
 		{ -bdi::out "/${(j:/:)parents[2,-(${#dest}+1)]}"; return }
 fi
 
