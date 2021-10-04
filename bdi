@@ -4,9 +4,9 @@ zparseopts -D -A opts f h
 
 [[ -v opts[-h] ]] && {
 	<<- EOU
-		usage: $0 [-fh] [n|parent|{pattern ...}|{.[...]}]
+		usage: $0 [-fh] [n|ancestor|pattern [...]|{.[...]}]
 
-		   -f     parent will be interpreted as a number
+		   -f     pattern will be interpreted as a number
 		   -h     print this help
 	EOU
 	return
@@ -15,23 +15,23 @@ zparseopts -D -A opts f h
 (( ! ARGC )) &&
 	{ cd $PWD:h; return }
 
-local parents=( / ${(s:/:)PWD:h} )
+local ancestors=( / ${(s:/:)PWD:h} )
 local dest=${(j:*:)@}
 
 if [[ ! -v opts[-f] ]]
 then
 	local d
-	(( d=${parents[(I)$dest]} )) || (( d=${parents[(I)$dest*]} ))
+	(( d=${ancestors[(I)$dest]} )) || (( d=${ancestors[(I)$dest*]} ))
 
 	(( d > 0 )) &&
-		{ cd "/${(j:/:)parents[2, d]}"; return }
+		{ cd /${(j:/:)ancestors[2, d]}; return }
 
 	[[ $dest =~ '^\.+$' ]] &&
-		{ cd "/${(j:/:)parents[2,-(${#dest}+1)]}"; return }
+		{ cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
 fi
 
 [[ $dest == <1-> ]] &&
-	{ cd "/${(j:/:)parents[2, $#parents - dest + 1]}"; return }
+	{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]}; return }
 
 [[ $dest == <0-0> ]] &&
 	cd /

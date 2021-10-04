@@ -3,27 +3,29 @@
 zstyle ':completion:*:*:bdi:*' sort false
 
 function _bdi {
+
 	_arguments -S \
 		'-f[force number]:number:->numbers' \
 		'-h[help]' \
-		'*:directory:->directories'
+		':directory:->directories'
 
-	local -a parents
-	parents=( ${(s:/:)PWD:h} )
-	parents=( ${(Oa)parents} / )
+	local -a ancestors
+	ancestors=( ${(s:/:)PWD:h} )
+	ancestors=( ${(Oa)ancestors} / )
 
 	case "$state" in
 		numbers)
-			local -a numparents
-			for i in {1..$(($#parents - 1))}; numparents+=("$i""[${parents[$i]}]")
-			numparents+=( '0[/]' )
-			_values 'numbered parent directories' $numparents
+			local -a numancestors
+			for i in {1..$(($#ancestors - 1))}; numancestors+=("$i""[${ancestors[$i]}]")
+			numancestors+=( '0[/]' )
+			_values 'numbered ancestor directories' $numancestors
 			;;
 		directories )
-			_describe -t directories 'parent directories' parents
+			_describe -t path-directories 'ancestor directories' ancestors
 			;;
 	esac
 
 }
 
 _bdi "$@"
+
