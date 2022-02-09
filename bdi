@@ -35,9 +35,9 @@ then
 		{ cd /${(j:/:)ancestors[2, fzfres]}; return }
 fi
 
-[[ $dest == <1-> ]] &&
-	{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]}; return }
+[[ $dest == <0-0> || $dest -ge $#ancestors ]] &&
+	{ cd /; return }
 
-[[ $dest == <0-0> ]] &&
-	cd /
+[[ $dest == <1-> ]] &&
+	{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]} }
 
