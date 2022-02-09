@@ -30,9 +30,11 @@ then
 		{ cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
 fi
 
-[[ $dest == <1-> ]] &&
-	{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]}; return }
+[[ $dest != <-> ]] && return 1
 
-[[ $dest == <0-0> ]] &&
-	cd /
+(( dest == 0 || dest > #ancestors )) &&
+	{ cd /; return }
+
+(( dest > 0 )) &&
+	{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]} }
 
