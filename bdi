@@ -26,7 +26,7 @@ then
 	(( d > 0 )) &&
 		{ cd /${(j:/:)ancestors[2, d]}; return }
 
-	[[ $dest =~ '^\.+$' ]] &&
+	[[ $dest =~ ^\\.+$ ]] &&
 		{ cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
 fi
 
