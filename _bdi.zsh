@@ -16,7 +16,7 @@ function _bdi {
 	case "$state" in
 		numbers)
 			local -a numancestors
-			for i in {1..$(($#ancestors - 1))}; numancestors+=("$i""[${ancestors[$i]}]")
+			for i in {1..$(($#ancestors - 1))}; numancestors+=("${i}[${ancestors[$i]}]")
 			numancestors+=( '0[/]' )
 			_values 'numbered ancestor directories' $numancestors
 			;;
