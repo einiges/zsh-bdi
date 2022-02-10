@@ -1,6 +1,7 @@
 #compdef bdi
 
 zstyle ':completion:*:*:bdi:*' sort false
+zstyle ':completion:*:*:bdi:*:ancestors' list-colors "=*=${LS_COLORS[(ws.:.r)di=*]##di=}"
 
 function _bdi {
 
@@ -21,7 +22,7 @@ function _bdi {
 			_values 'numbered ancestor directories' $numancestors
 			;;
 		directories )
-			_describe -t path-directories 'ancestor directories' ancestors
+			_describe -t 'ancestors' 'ancestor directories' ancestors
 			;;
 	esac
 
