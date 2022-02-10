@@ -1,12 +1,13 @@
 # vim:ft=zsh noet
 
-zparseopts -D -A opts f h
+zparseopts -D -A opts f F h
 
 [[ -v opts[-h] ]] && {
 	<<- EOU
 		usage: $0 [-fh] [n|ancestor|pattern [...]|{.[...]}]
 
 		   -f     pattern will be interpreted as a number
+		   -F     Enable fuzzy find if no exact match or first character match is found (fzf program needed)
 		   -h     print this help
 	EOU
 	return
@@ -28,6 +29,10 @@ then
 
 	[[ $dest =~ ^\\.+$ ]] &&
 		{ cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
+
+	[[ -v opts[-F] ]] &&
+	(( fzfres=${ancestors[(I)$(printf '%b\n' "${ancestors[@]}" | fzf --filter="$dest" | awk 'NR==1')]} )) &&
+		{ cd /${(j:/:)ancestors[2, fzfres]}; return }
 fi
 
 [[ $dest != <-> ]] && return 1
