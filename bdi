@@ -27,7 +27,7 @@ then
 	(( d > 0 )) &&
 		{ cd /${(j:/:)ancestors[2, d]}; return }
 
-	[[ $dest =~ '^\.+$' ]] &&
+	[[ $dest =~ ^\\.+$ ]] &&
 		{ cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
 
 	[[ -v opts[-F] ]] &&
@@ -35,9 +35,11 @@ then
 		{ cd /${(j:/:)ancestors[2, fzfres]}; return }
 fi
 
-[[ $dest == <0-0> || $dest -ge $#ancestors ]] &&
+[[ $dest != <-> ]] && return 1
+
+(( dest == 0 || dest > #ancestors )) &&
 	{ cd /; return }
 
-[[ $dest == <1-> ]] &&
+(( dest > 0 )) &&
 	{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]} }
 

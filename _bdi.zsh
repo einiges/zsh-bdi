@@ -1,6 +1,7 @@
 #compdef bdi
 
 zstyle ':completion:*:*:bdi:*' sort false
+zstyle ':completion:*:*:bdi:*:ancestors' list-colors "=*=${LS_COLORS[(ws.:.r)di=*]##di=}"
 
 function _bdi {
 
@@ -16,12 +17,12 @@ function _bdi {
 	case "$state" in
 		numbers)
 			local -a numancestors
-			for i in {1..$(($#ancestors - 1))}; numancestors+=("$i""[${ancestors[$i]}]")
+			for i in {1..$(($#ancestors - 1))}; numancestors+=("${i}[${ancestors[$i]}]")
 			numancestors+=( '0[/]' )
 			_values 'numbered ancestor directories' $numancestors
 			;;
 		directories )
-			_describe -t path-directories 'ancestor directories' ancestors
+			_describe -t 'ancestors' 'ancestor directories' ancestors
 			;;
 	esac
 
