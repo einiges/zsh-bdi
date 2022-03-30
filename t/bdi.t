@@ -44,20 +44,20 @@ Argument is number and numbered directories occur
 Force number
 
   $ hmkcd 1/1.2/1.3
-  $ bdp -f 1
+  $ bdp -n n 1
   1/1.2
 
 
 Options passed but no directory specified
 
   $ hmkcd a
-  $ bdp -f
-  
+  $ bdp -n n
+  [1]
 
 
 Force number without a number (expect error)
 
-  $ bdp -f /
+  $ bdp -n n /
   [1]
 
 
@@ -107,6 +107,19 @@ PWD is not a parent
   $ cdh
   $ bdp $PWD:t
   [1]
+
+
+Empty Only without being empty
+
+  $ cdh
+  $ bdp -n e 1
+  [1]
+
+
+Blank is empty
+  $ hmkcd a
+  $ bdp -n e ''
+  
 
 
 vim: ft=cram et ts=2 sw=2 sts=2

@@ -5,27 +5,33 @@ zstyle ':completion:*:*:bdi:*:ancestors' list-colors "=*=${LS_COLORS[(ws.:.r)di=
 
 function _bdi {
 
-	_arguments -S \
-		'-f[force number]:number:->numbers' \
+	_arguments -C -S \
+		'-n[considered pattern notations]:notations:->notations' \
 		'-h[help]' \
-		':directory:->directories'
-
-	local -a ancestors
-	ancestors=( ${(s:/:)PWD:h} )
-	ancestors=( ${(Oa)ancestors} / )
+		'::directory:->directories'
 
 	case "$state" in
-		numbers)
-			local -a numancestors
-			for i in {1..$(($#ancestors - 1))}; numancestors+=("${i}[${ancestors[$i]}]")
-			numancestors+=( '0[/]' )
-			_values 'numbered ancestor directories' $numancestors
+		notations)
+			compset -P '*'
+			local -a flags
+			flags+=(
+				'd:dot-notation'
+				'e:empty'
+				'n:number-notation'
+				'w:word-notation'
+			)
+			_describe -t flags 'notation flag' flags -Q -S ''
+			return
 			;;
 		directories )
+			local -a ancestors
+			ancestors=( ${(s:/:)PWD:h} )
+			ancestors=( ${(Oa)ancestors} / )
+
 			_describe -t 'ancestors' 'ancestor directories' ancestors
+			return
 			;;
 	esac
-
 }
 
 _bdi "$@"

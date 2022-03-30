@@ -1,40 +1,75 @@
 # vim:ft=zsh noet
 
-zparseopts -D -A opts f h
+local -A opts
+opts[-n]='ewdn'
+zparseopts -D -K -A opts n: h
 
 [[ -v opts[-h] ]] && {
 	<<- EOU
-		usage: $0 [-fh] [n|ancestor|pattern [...]|{.[...]}]
+		usage: $0 [OPTIONS] PATTERN
 
-		   -f     pattern will be interpreted as a number
-		   -h     print this help
+		OPTIONS
+		   -n     A list of the NOTATIONs to be considered, to find a matching
+		          directory (default: ewdn)
+		   -h     Print this help
+
+		NOTATIONS
+		   (d)ot   (.[...])
+		        Treat a pattern of repeatedly used periods as n+1
+		        directories up. '..' means, 3 directiories up
+		   (e)mpty
+		        Treat a missing pattern as one directory up
+		   (n)umber   (0-n)
+		        Treat a pattern as a number and go amount directories up
+		        If number is 0 or greater than the amount of possible
+		        directories the result will be /
+		   (w)ord   (word [...])
+		        Treat the pattern as a subsequence of a directory
+		        Directories beginning with pattern are prioritized
 	EOU
 	return
 }
 
-(( ! ARGC )) &&
-	{ cd $PWD:h; return }
+[[ $opts[-n] =~ [^denw] ]] &&
+	return 1
 
 local ancestors=( / ${(s:/:)PWD:h} )
 local dest=${(j:*:)@}
 
-if [[ ! -v opts[-f] ]]
-then
-	local d
-	(( d=${ancestors[(I)$dest]} )) || (( d=${ancestors[(I)$dest*]} ))
+local notation
+for notation in "${(s..u)opts[-n]}"
+do
+	case "$notation" in
+		d)
+			[[ $dest =~ ^\\.+$ ]] &&
+				{ cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
+			;;
+		e)
+			[[ -z $dest ]] &&
+				{ cd $PWD:h; return }
+			;;
+		n)
+			[[ $dest != <-> ]] &&
+				continue
 
-	(( d > 0 )) &&
-		{ cd /${(j:/:)ancestors[2, d]}; return }
+			(( dest == 0 || dest > #ancestors )) &&
+				{ cd /; return }
 
-	[[ $dest =~ ^\\.+$ ]] &&
-		{ cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
-fi
+			(( dest > 0 )) &&
+				{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]}; return }
+			;;
+		w)
+			[[ -z $dest ]] &&
+				continue
 
-[[ $dest != <-> ]] && return 1
+			local d
+			(( d=${ancestors[(I)$dest]} )) || (( d=${ancestors[(I)$dest*]} ))
 
-(( dest == 0 || dest > #ancestors )) &&
-	{ cd /; return }
+			(( d > 0 )) &&
+				{ cd /${(j:/:)ancestors[2, d]}; return }
+			;;
+	esac
+done
 
-(( dest > 0 )) &&
-	{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]} }
+return 1
 
