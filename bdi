@@ -42,21 +42,21 @@ do
 	case "$notation" in
 		d)
 			[[ $dest =~ ^\\.+$ ]] &&
-				{ cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
+				{ builtin cd /${(j:/:)ancestors[2,-(${#dest}+1)]}; return }
 			;;
 		e)
 			[[ -z $dest ]] &&
-				{ cd $PWD:h; return }
+				{ builtin cd $PWD:h; return }
 			;;
 		n)
 			[[ $dest != <-> ]] &&
 				continue
 
 			(( dest == 0 || dest > #ancestors )) &&
-				{ cd /; return }
+				{ builtin cd /; return }
 
 			(( dest > 0 )) &&
-				{ cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]}; return }
+				{ builtin cd /${(j:/:)ancestors[2, $#ancestors - dest + 1]}; return }
 			;;
 		w)
 			[[ -z $dest ]] &&
@@ -66,7 +66,7 @@ do
 			(( d=${ancestors[(I)$dest]} )) || (( d=${ancestors[(I)$dest*]} ))
 
 			(( d > 0 )) &&
-				{ cd /${(j:/:)ancestors[2, d]}; return }
+				{ builtin cd /${(j:/:)ancestors[2, d]}; return }
 			;;
 	esac
 done
