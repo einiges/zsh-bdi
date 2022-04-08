@@ -1,38 +1,34 @@
 #compdef bdi
 
-zstyle ':completion:*:*:bdi:*' sort false
-zstyle ':completion:*:*:bdi:*:ancestors' list-colors "=*=${LS_COLORS[(ws.:.r)di=*]##di=}"
+local curcontext="$curcontext" ret=1
 
-function _bdi {
+_arguments -S \
+	'-n[considered pattern notations]: :->notations' \
+	'(- 1 *)-h[display usage information]' \
+	'(-):: :->pattern' \
+	&& ret=0
 
-	_arguments -C -S \
-		'-n[considered pattern notations]:notations:->notations' \
-		'-h[help]' \
-		'::directory:->directories'
+case "$state" in
+	notations)
+		compset -P '*'
+		local -a flags
+		flags=(
+			'd:dot-notation'
+			'e:empty'
+			'n:number-notation'
+			'w:word-notation'
+		)
+		_describe -t notations 'notation flag' flags -Q -S '' \
+			&& ret=0
+		;;
+	pattern)
+		local -a ancestors
+		ancestors=( ${(Oas:/:)PWD:h} / )
 
-	case "$state" in
-		notations)
-			compset -P '*'
-			local -a flags
-			flags+=(
-				'd:dot-notation'
-				'e:empty'
-				'n:number-notation'
-				'w:word-notation'
-			)
-			_describe -t flags 'notation flag' flags -Q -S ''
-			return
-			;;
-		directories )
-			local -a ancestors
-			ancestors=( ${(s:/:)PWD:h} )
-			ancestors=( ${(Oa)ancestors} / )
+		_describe -V -t directories 'directory' ancestors \
+			&& ret=0
+		;;
+esac
 
-			_describe -t 'ancestors' 'ancestor directories' ancestors
-			return
-			;;
-	esac
-}
-
-_bdi "$@"
+return ret
 
