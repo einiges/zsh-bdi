@@ -15,7 +15,7 @@ After that you can go dot-only. `.. ......`
 
 ## Usage
 
-`bdi [OPTIONS] PATTERN
+`bdi [OPTIONS] PATTERN`
 
 Pattern has to follow the notation described below.
 
