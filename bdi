@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 local -A opts
-opts[-n]='ewdn'
+opts[-n]='edwn'
 zparseopts -D -K -A opts n: h
 
 [[ -v opts[-h] ]] && {
@@ -10,7 +10,7 @@ zparseopts -D -K -A opts n: h
 
 		OPTIONS
 		   -n     A list of the NOTATIONs to be considered, to find a matching
-		          directory (default: ewdn)
+		          directory (default: edwn)
 		   -h     Print this help
 
 		NOTATIONS
